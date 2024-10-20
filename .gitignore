@@ -4,6 +4,12 @@
 # belong in git's global ignore instead:
 # `$XDG_CONFIG_HOME/git/ignore` or `~/.config/git/ignore`
 
+# Ignore any update local development files
+Dockerfile
+compose.yaml
+.devcontainer/
+
+
 # Ignore bundler config.
 /.bundle
 
