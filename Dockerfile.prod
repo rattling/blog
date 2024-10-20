@@ -1,0 +1,36 @@
+# Dockerfile.prod
+
+# Stage 1: Build the application
+FROM ruby:3.2 AS builder
+
+ENV RAILS_ENV=production
+ENV SECRET_KEY_BASE=placeholder_key
+ENV DISABLE_DATABASE_ENVIRONMENT_CHECK=1
+ENV DISABLE_BOOTSNAP=1
+
+RUN apt-get update -qq && apt-get install -y \
+  build-essential \
+  libpq-dev \
+  nodejs \
+  yarn
+
+WORKDIR /app
+
+COPY Gemfile Gemfile.lock ./
+RUN bundle install 
+
+COPY . .
+RUN bundle exec rake assets:precompile
+
+# Stage 2: Final image
+FROM ruby:3.2-slim
+
+WORKDIR /app
+COPY --from=builder /app /app
+
+EXPOSE 3000
+
+ENV RAILS_ENV=production
+ENV RAILS_LOG_TO_STDOUT=true
+
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]

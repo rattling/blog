@@ -7,9 +7,9 @@
 # Ignore bundler config.
 /.bundle
 
-# Ignore all environment files (except templates).
-/.env*
-!/.env*.erb
+# Ignore the SQLite database.
+/db/*.sqlite3
+/db/*.sqlite3-journal
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -22,14 +22,34 @@
 !/tmp/pids/
 !/tmp/pids/.keep
 
-# Ignore storage (uploaded files in development and any SQLite databases).
-/storage/*
+# Ignore uploaded files in development.
+storage/*
 !/storage/.keep
-/tmp/storage/*
-!/tmp/storage/
-!/tmp/storage/.keep
-
-/public/assets
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+/config/credentials.yml.enc
+
+# Ignore environment-specific files.
+.env
+.env.*.local
+
+# Ignore IDE-specific and other editor files.
+.idea/
+.vscode/
+
+# Ignore Docker-related files.
+/docker-compose.yml
+*.env
+docker-compose.override.yml
+.dockerignore
+
+# Ignore node_modules for Webpacker and JS dependencies.
+/node_modules/
+
+# Ignore Yarn and NPM debug files.
+yarn-debug.log*
+npm-debug.log*
+
+# Ignore files related to your dev container (if needed).
+.devcontainer/*
